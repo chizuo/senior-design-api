@@ -1,5 +1,5 @@
 # CSC492 Senior Design Project - REST API
-### This REST API connects the *Go Ahead, Make My Movie Night* desktop application to a database storing both users and their saved movie list.
+### This REST API connects the [*Go Ahead, Make My Movie Night* desktop application](https://github.com/chizuo/senior-design-app) to a database storing both users and their saved movie list.
 ---
 The API's `DataController` class can make the following requests:
 #### `GET` User: `{host-url}/{application-hash}`
