@@ -43,15 +43,38 @@ namespace MovieDbAccess.Tests
         */
             //Arrange
             var mockDataProcessor = new Mock<IDataProcessor>();
+            Movie movie = new Movie {imdb_id = "123456"};
+            mockDataProcessor.Setup(x => x.GetMovieAsync(It.IsAny<int>())).Returns(Task.FromResult(movie));
             var dataController = new DataController(mockDataProcessor.Object);
             
             //Act
             var actionResult = await dataController.GetMovieAsync(123);
+            var result = actionResult as OkObjectResult;
 
             //Assert
             Assert.IsType<OkObjectResult>(actionResult);
+            Assert.Equal(movie, result.Value);
         }
 
+        [Fact]
+        public async Task Null_GetMovieAsync_Should_Return_Ok()
+        {
+        /*
+        * Tests the controller's GetMovieAsync method.
+        * Expects a 200 Ok Response, ignoring whether or not the movie exists.
+        * As that is handled at the application level.
+        */
+            //Arrange
+            var mockDataProcessor = new Mock<IDataProcessor>();
+            var dataController = new DataController(mockDataProcessor.Object);
+            
+            //Act
+            var actionResult = await dataController.GetMovieAsync(123);
+            var result = actionResult as OkObjectResult;
+            //Assert
+            Assert.IsType<OkObjectResult>(actionResult);
+        }
+        
         [Fact]
         public async Task AddMovieAsync_ShouldReturn_Accepted()
         {
